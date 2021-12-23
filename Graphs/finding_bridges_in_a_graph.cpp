@@ -23,9 +23,9 @@ void dfs(int node, int parent, vector<vector<int>> &adj, vector<bool> &visited, 
 
             dfs(child, node, adj, visited, low, in, timer);
 
-            if (low[node] < low[child])
+            if (in[node] < low[child])
             {
-                cout << node << " -> " << child << " is a bridge" << endl;
+                cout << node + 1 << " -> " << child + 1 << " is a bridge" << endl;
             }
             low[node] = min(low[node], low[child]);
         }
@@ -46,6 +46,8 @@ int main()
     {
         int u, v;
         cin >> u >> v;
+        --u, --v;
+
         adj[u].push_back(v);
         adj[v].push_back(u);
     }

@@ -19,8 +19,7 @@ int main()
 
     vector<bool> inMST(n, false);
 
-    vector<int> key(n, INT_MAX); //contains the minimum edge wait connected to i-th node
-
+    vector<int> key(n, INT_MAX); // contains the minimum edge weight connected to i-th node
 
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
 

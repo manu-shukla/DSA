@@ -1,22 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool solve(string a, string b, map<string, bool> &dp)
+bool solve(string A, string B, map<string, bool> &dp)
 {
-    if (a == b)
+    if (A == B)
         return true;
 
-    if (a.length() <= 1)
+    if (A.length() <= 1)
         return false;
 
-    string key = a + " " + b;
+    string key = A + " " + B;
     if (dp.find(key) != dp.end())
         return dp[key];
 
-    int len = a.length();
+    int len = A.length();
     bool check = false;
     for (int i = 1; i < len; ++i)
     {
-        if ((solve(a.substr(0, i), b.substr(len - i, i), dp) && solve(a.substr(i, len - i), b.substr(0, len - i), dp)) || (solve(a.substr(0, i), b.substr(0, i), dp) && solve(a.substr(i, len - i), b.substr(i, len - i), dp)))
+        // if Swapping done at current length i.e.
+        // A-great and B-eatgr
+        // Swapping at length 2 i.e. i==2
+        // Partitioning A => gr|eat and B=>eat|gr
+        // And recursively checking
+        // if left of A == right of B and right of A == left of B
+        bool swapped = solve(A.substr(0, i), B.substr(len - i), dp) && solve(A.substr(i), B.substr(0, len - i), dp);
+        // ************************************************************************
+        // No Swapping is done at current length
+        // A-great and B-great
+        // Partitioning A=>gr|eat and B=>gr|eat
+        // recursively checking if
+        // left of A == left of B and right of A == right of B
+        bool notSwapped = solve(A.substr(0, i), B.substr(0, i), dp) && solve(A.substr(i), B.substr(i), dp);
+
+        if (swapped || notSwapped)
         {
             check = true;
             break;

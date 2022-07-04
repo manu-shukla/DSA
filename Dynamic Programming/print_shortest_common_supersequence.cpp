@@ -46,9 +46,15 @@ int main()
         else
         {
             if (dp[i - 1][j] > dp[i][j - 1])
+            {
+                scs += a[i - 1];
                 --i;
+            }
             else
+            {
+                scs += b[j - 1];
                 --j;
+            }
         }
     }
 
